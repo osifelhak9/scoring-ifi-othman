@@ -1,4 +1,4 @@
-URL publique : à compléter après le premier déploiement Render
+URL publique de l'application : https://scoring-ifi-othman.onrender.com
+Contrôle de santé public : https://scoring-ifi-othman.onrender.com/health
 
-URL locale de secours : http://127.0.0.1:5000
-Contrôle de santé local : http://127.0.0.1:5000/health
+Cette URL est accessible depuis Internet et doit être utilisée pour l'évaluation.
