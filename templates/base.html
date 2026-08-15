@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Démonstrateur responsable de scoring IFI pour NOVOS">
+  <title>{% block title %}Scoring IFI responsable{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+  <header class="site-header">
+    <div class="shell header-row">
+      <div>
+        <p class="eyebrow">NOVOS · Démonstrateur Data & IA</p>
+        <p class="brand">Scoring IFI responsable</p>
+      </div>
+      <span class="status" aria-label="Statut du démonstrateur">● Modèle local actif</span>
+    </div>
+  </header>
+  <main id="contenu" class="shell" tabindex="-1">{% block content %}{% endblock %}</main>
+  <footer class="site-footer">
+    <div class="shell">Version {{ config.MODEL_VERSION }} · Aucun nom, e-mail, téléphone ou adresse n'est collecté.</div>
+  </footer>
+</body>
+</html>

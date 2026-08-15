@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Erreur {{ code }} · Scoring IFI{% endblock %}
+{% block content %}
+<section class="panel error-page" role="alert">
+  <p class="eyebrow">Erreur {{ code }}</p>
+  <h1>La demande n'a pas pu être traitée</h1>
+  <p>{{ message }}</p>
+  <a class="button-link" href="{{ url_for('index') }}">Revenir au formulaire</a>
+</section>
+{% endblock %}

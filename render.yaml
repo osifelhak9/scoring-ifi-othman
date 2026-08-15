@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: scoring-ifi-othman
+    runtime: python
+    plan: free
+    region: frankfurt
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 120 app:app
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: IFI_SECRET_KEY
+        generateValue: true
+      - key: IFI_COOKIE_SECURE
+        value: "1"

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero" aria-labelledby="titre-page">
+  <div>
+    <p class="eyebrow">Aide à la priorisation · contrôle humain obligatoire</p>
+    <h1 id="titre-page">Évaluer un profil de démonstration</h1>
+    <p class="lead">Le score classe une priorité de revue. Il ne détermine ni patrimoine, ni assujettissement fiscal, ni décision de contact automatique.</p>
+  </div>
+  <aside class="metric-card" aria-label="Informations sur le modèle">
+    <span>Seuil de revue</span>
+    <strong>{{ '%.1f'|format(metadata.threshold * 100)|replace('.', ',') }} %</strong>
+    <small>7 variables comportementales et historiques</small>
+  </aside>
+</section>
+
+{% if errors %}
+<section class="alert alert-error" role="alert" aria-labelledby="titre-erreurs">
+  <h2 id="titre-erreurs">Le formulaire contient {{ errors|length }} erreur(s)</h2>
+  <ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+</section>
+{% endif %}
+
+{% if result %}
+<section class="result {{ 'result-priority' if result.priority else 'result-standard' }}" aria-live="polite" aria-labelledby="titre-resultat">
+  <div>
+    <p class="eyebrow">Résultat du démonstrateur</p>
+    <h2 id="titre-resultat">{{ result.label }}</h2>
+    <p>Score estimé : <strong>{{ result.score_percent }} %</strong> · seuil : {{ result.threshold_percent }} %</p>
+  </div>
+  <div class="gauge" aria-label="Score estimé de {{ result.score_percent }} pour cent">
+    <span style="--score: {{ result.score * 100 }}%"></span>
+  </div>
+  <p class="result-note">Une personne habilitée doit vérifier le contexte, la qualité des données et la pertinence du contact avant toute action.</p>
+</section>
+{% endif %}
+
+<div class="layout">
+  <section class="panel" aria-labelledby="titre-formulaire">
+    <h2 id="titre-formulaire">Variables du profil</h2>
+    <p class="muted">Les libellés métiers détaillés des codes devront être validés avec NOVOS avant un usage réel.</p>
+    <form method="post" action="{{ url_for('predict') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <fieldset>
+        <legend>Historique et comportement de don</legend>
+        <div class="form-grid">
+          {% for feature in metadata.features %}
+          <div class="field">
+            <label for="{{ feature }}">{{ labels[feature] }}</label>
+            <select id="{{ feature }}" name="{{ feature }}" required aria-describedby="aide-{{ feature }}">
+              {% for option in metadata.options[feature] %}
+              <option value="{{ option }}" {% if values.get(feature) == option %}selected{% endif %}>Code {{ option }}</option>
+              {% endfor %}
+            </select>
+            <small id="aide-{{ feature }}">Valeur catégorielle issue du dictionnaire source.</small>
+          </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <div class="form-actions">
+        <button type="submit">Calculer le score</button>
+        <a href="{{ url_for('index') }}">Réinitialiser</a>
+      </div>
+    </form>
+  </section>
+
+  <aside class="panel side-panel" aria-labelledby="titre-cadre">
+    <h2 id="titre-cadre">Cadre d'utilisation</h2>
+    <ol class="steps">
+      <li><strong>Saisir</strong><span>uniquement des codes non directement identifiants.</span></li>
+      <li><strong>Calculer</strong><span>une probabilité avec le pipeline versionné.</span></li>
+      <li><strong>Contrôler</strong><span>le résultat et sa cohérence métier.</span></li>
+      <li><strong>Décider</strong><span>avec validation humaine, jamais automatiquement.</span></li>
+    </ol>
+    <div class="alert">
+      <strong>Limite importante</strong>
+      <p>Le démonstrateur utilise un échantillon de challenge. Une validation sur des données représentatives est nécessaire avant déploiement.</p>
+    </div>
+  </aside>
+</div>
+{% endblock %}

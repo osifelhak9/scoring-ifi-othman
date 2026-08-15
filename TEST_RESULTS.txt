@@ -1,0 +1,19 @@
+Campagne de tests du démonstrateur IFI
+Date : 15 août 2026
+Commande : python -m pytest -q
+
+Résultat : 8 tests réussis en 1,05 s
+
+Périmètre couvert :
+- affichage de la page d'accueil et structure accessible ;
+- route de santé et version du modèle ;
+- prédiction valide ;
+- champs manquants ;
+- catégorie inconnue ;
+- en-têtes HTTP de sécurité ;
+- protection CSRF ;
+- méthode HTTP interdite sur la route de prédiction.
+
+Contrôle de déploiement : démarrage Gunicorn réussi, page d'accueil accessible,
+route /health au statut « ok », sept variables chargées et en-têtes de sécurité
+présents.
