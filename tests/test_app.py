@@ -59,6 +59,8 @@ def test_valid_prediction_returns_a_score_and_warning():
     assert response.status_code == 200
     assert "Score estimé" in html
     assert "contrôle humain" in html.lower()
+    assert "<progress" in html
+    assert 'style="' not in html
 
 
 def test_missing_fields_are_rejected():

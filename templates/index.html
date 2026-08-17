@@ -27,9 +27,9 @@
     <h2 id="titre-resultat">{{ result.label }}</h2>
     <p>Score estimé : <strong>{{ result.score_percent }} %</strong> · seuil : {{ result.threshold_percent }} %</p>
   </div>
-  <div class="gauge" aria-label="Score estimé de {{ result.score_percent }} pour cent">
-    <span style="--score: {{ result.score * 100 }}%"></span>
-  </div>
+  <progress class="gauge" value="{{ result.score * 100 }}" max="100" aria-label="Score estimé de {{ result.score_percent }} pour cent">
+    {{ result.score_percent }} %
+  </progress>
   <p class="result-note">Une personne habilitée doit vérifier le contexte, la qualité des données et la pertinence du contact avant toute action.</p>
 </section>
 {% endif %}

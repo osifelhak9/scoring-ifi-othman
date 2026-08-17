@@ -55,8 +55,10 @@ a { color: var(--purple); font-weight: 700; }
 .result h2 { margin-bottom: 4px; }
 .result p { margin: 0; }
 .result-note { grid-column: 1 / -1; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); }
-.gauge { height: 16px; overflow: hidden; background: #e6e2eb; border-radius: 999px; }
-.gauge span { display: block; width: var(--score); max-width: 100%; height: 100%; background: linear-gradient(90deg, #8b5cf6, var(--purple)); }
+.gauge { width: 100%; height: 16px; overflow: hidden; border: 0; border-radius: 999px; background: #e6e2eb; appearance: none; }
+.gauge::-webkit-progress-bar { border-radius: 999px; background: #e6e2eb; }
+.gauge::-webkit-progress-value { border-radius: 999px; background: linear-gradient(90deg, #8b5cf6, var(--purple)); }
+.gauge::-moz-progress-bar { border-radius: 999px; background: linear-gradient(90deg, #8b5cf6, var(--purple)); }
 .site-footer { padding: 20px 0; color: #fff; background: var(--ink); font-size: .88rem; }
 .error-page { max-width: 680px; margin: 40px auto; }
 @media (max-width: 800px) {
